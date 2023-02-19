@@ -15,11 +15,10 @@ export function NewsContent(props: { id: number; newsInfo: Props }) {
   }, [props?.newsInfo]);
   return (
     <div className={`flex space-x-1 font-sans text-[14px] m-1`}>
-      <div className="text-end">
-        <td>{props?.id}. </td>
+      <div className="text-end w-9 text-[#828282]">
+        <p>{props?.id}. </p>
       </div>
       <div className="flex flex-col">
-        <td></td>
         <div className="flex space-x-1 items-center">
           <img src="greyarrow.gif" />
           <p>{props?.newsInfo.title}</p>
@@ -45,27 +44,27 @@ export function NewsContent(props: { id: number; newsInfo: Props }) {
 function diff_minutes(dt2: Date, dt1: Date): string {
   var diff = (dt2.getTime() - dt1.getTime()) / 1000;
   diff /= 60;
-  const minutes = Math.abs(Math.round(diff));
+  const minutes = Math.abs(Math.floor(diff));
   if (minutes < 60) {
     return `${minutes} minutes`;
   }
-  const hour = Math.abs(Math.round(minutes / 60));
+  const hour = Math.abs(Math.ceil(minutes / 60));
   if (hour < 24) {
     return `${hour} hour`;
   }
-  const day = Math.abs(Math.round(hour / 24));
+  const day = Math.abs(Math.ceil(hour / 24));
   if (day < 7) {
     return `${day} days`;
   }
-  const weeks = Math.abs(Math.round(day / 7));
+  const weeks = Math.abs(Math.ceil(day / 7));
   if (weeks < 4) {
     return `${weeks} weeks`;
   }
-  const month = Math.abs(Math.round(weeks / 4));
+  const month = Math.abs(Math.ceil(weeks / 4));
   if (month < 12) {
     return `${month} months`;
   }
-  const year = Math.abs(Math.round(month / 12));
+  const year = Math.abs(Math.ceil(month / 12));
 
   return `${year} years`;
 }
