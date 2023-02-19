@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Router } from "react-router-dom";
 import { NewsContent } from "../components/NewsContent";
 import { api_url } from "../helpers/utils";
 
@@ -31,9 +31,9 @@ export function Home() {
               <strong>Hacker News</strong>
             </div>
             <div className="ml-3 flex items-center space-x-1">
-              <a>new</a>
+              <a className="text-[#fff]" >new</a>
               <p> | </p>
-              <a>search</a>
+              <Link to="/search" >search</Link>
             </div>
           </div>
         </div>
