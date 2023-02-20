@@ -29,9 +29,8 @@ export function SearchPage() {
   useEffect(() => {
     if (tags == "story" || tags == "comment") {
       setExtraQueries(`&tags=${tags}`);
-    }
-    else{
-        setExtraQueries("");
+    } else {
+      setExtraQueries("");
     }
   }, [tags]);
 
@@ -50,13 +49,12 @@ export function SearchPage() {
     const d = new Date();
     if (dateRange == "last24") {
       d.setDate(d.getDate() - 3);
-      console.log(d.getTime() , new Date().getTime())
+      console.log(d.getTime(), new Date().getTime());
       setExtraQueries(
-        extraQueries + `&numericFilters=created_at_i>=${d.getTime()/1000}`
+        extraQueries + `&numericFilters=created_at_i>=${d.getTime() / 1000}`
       );
-    }
-    else{
-        setExtraQueries("");
+    } else {
+      setExtraQueries("");
     }
   }, [dateRange]);
 
@@ -127,22 +125,30 @@ export function SearchPage() {
             <option value="date">Date</option>
           </select>
           <p>for</p>
-          <select id="searchFor" name="searchFor" onChange={(event) => setDateRange(event.target.value)} >
+          <select
+            id="searchFor"
+            name="searchFor"
+            onChange={(event) => setDateRange(event.target.value)}
+          >
             <option value="alltime">All time</option>
             <option value="last24">Last 24h</option>
           </select>
         </div>
         {newsInfo?.hasOwnProperty("hits") ? (
-           newsInfo?.hits?.length > 0 ? newsInfo?.hits?.map((news: any, index: number) => {
-            return (
-              <Search
-                newsInfo={news}
-                key={index}
-                id={page * pageSize + index + 1}
-                highlight={query}
-              />
-            );
-          }) : <p>No record found</p>
+          newsInfo?.hits?.length > 0 ? (
+            newsInfo?.hits?.map((news: any, index: number) => {
+              return (
+                <Search
+                  newsInfo={news}
+                  key={index}
+                  id={page * pageSize + index + 1}
+                  highlight={query}
+                />
+              );
+            })
+          ) : (
+            <p>No record found</p>
+          )
         ) : (
           <p>Loading ...</p>
         )}
