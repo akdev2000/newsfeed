@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route index element={<Home />} path="/" />
-        <Route index element={<SearchPage />} path="/search" />
+        <Route index element={<SearchPage />} path="/search/:query" />
       </Routes>
     </Router>
     // <Home/>

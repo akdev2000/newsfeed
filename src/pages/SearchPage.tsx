@@ -1,24 +1,25 @@
 import { InputBase } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { NewsContent } from "../components/NewsContent";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Search } from "../components/Search";
-import { api_url } from "../helpers/utils";
 
 const pageSize = 30;
 
-export function SearchPage() {
+export function SearchPage(props: any) {
+  const params = useParams();
   const [page, setPage] = useState(0);
   const [newsInfo, setNewsInfo] = useState({} as any);
   const [tags, setTags] = useState("all"); // all, story, comment
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(params?.query || "");
   const [searchBy, setSearchBy] = useState(""); // byPopularity, byDate
   const [dateRange, setDateRange] = useState("all");
   const [extraQueries, setExtraQueries] = useState("");
 
   useEffect(() => {
     setNewsInfo({});
-    fetch(`${api_url}/search?query=${query}${extraQueries}`)
+    fetch(
+      `${process.env.REACT_APP_API_URL}/search?query=${query}${extraQueries}`
+    )
       .then((res) => res.json())
       .then((news) => {
         setNewsInfo(news);
@@ -34,16 +35,11 @@ export function SearchPage() {
     }
   }, [tags]);
 
-  //   useEffect(() => {
-  //     if (searchBy == "popularity") {
-  //       setExtraQueries(extraQueries + "&numericFilters=points>0");
-  //     }
-  //     if (searchBy == "date") {
-  //       setExtraQueries(
-  //         extraQueries + `&numericFilters=created_at_i<${new Date().getTime()}`
-  //       );
-  //     }
-  //   }, [searchBy]);
+  useEffect(() => {
+    if (params?.query) {
+      setQuery(params?.query);
+    }
+  }, [params]);
 
   useEffect(() => {
     const d = new Date();
